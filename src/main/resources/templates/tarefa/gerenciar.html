@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <title>Gerenciar Tarefas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+</head>
+<body>
+		
+<div class="container-fluid m-0 p-0" >
+    <div class="d-flex justify-content-between align-items-center mb-4  bg-primary">
+        <h1 class="text-light m-3" >Gerenciamento de Tarefas</h1>
+        <div>
+            <a href="/usuarios/novo" class="btn btn-primary">Cadastro de Usuários</a>
+            <a href="/tarefas/nova" class="btn btn-primary">Cadastro de Tarefas</a>
+            <a href="/tarefas/gerenciar" class="btn btn-primary">Gerenciar Tarefas</a>
+        </div>
+    </div>
+  </div>
+ 
+ <div class="container">
+ 
+  	<div th:if="${mensagemSucesso}" class="alert alert-success" role="alert" id="mensagemSucesso">
+    	<p th:text="${mensagemSucesso}"></p>
+	</div>
+  	
+  	
+ 	<div class="row bg-light.bg-gradient">
+ 		 <div class="col-md-4 border-right">
+         	<h3 class="text-primary shadow p-3 mb-2 text-center">A Fazer</h3>
+                <div th:each="tarefa : ${tarefasAFazer}">
+                	<div class="card-body shadow p-3 mb-3 bg-white rounded">
+                	    <p> <strong>Descrição:</strong> <span th:text="${tarefa.descricao}"> Descrição da tarefa</span></p>
+                	    <p> <strong>Setor:</strong> <span th:text="${tarefa.setor}"> Setor</span></p>
+                	    <p> <strong>Prioridade:</strong> <span th:text="${tarefa.prioridade}"> Prioridade</span></p>                	   
+                	    <p> <strong>Vinculado a:</strong> <span th:text="${tarefa.usuario.nome}"> Usuário</span></p>
+                	    <p> <strong>Data abertura:</strong> <span th:text="${tarefa.dataCadastro}"> Descrição da tarefa</span></p>
+                	    
+              
+	                	 <div class="d-flex justify-content-between align-items-center mb-4 bg-primary rounded m-0 p-0">
+	                	    
+	                   		<a th:href="@{'/tarefas/editar/' + ${tarefa.id}}" class="btn btn-primary">Editar</a>
+	    					<form th:action="@{'/tarefas/excluir/' + ${tarefa.id}}" method="get" 
+	    									onsubmit="return confirm('Deseja realmente excluir esta tarefa?');">
+			           			 <button type="submit" class="btn btn-primary">Excluir</button>
+			        		</form>
+		               		
+		               		<form th:action="@{/tarefas/atualizar-status}" method="post" id="form-status" th:id="'form-status-' + ${tarefa.id}">
+				                <input type="hidden" name="id" th:value="${tarefa.id}" />
+				                <select name="status" class="form-control form-control-sm d-inline w-100"  
+				                				style="height: 50%; background-color: #007bff; color: white; font-size:1em; border: 0;" onchange="this.form.submit()">
+				                    <option value="A_FAZER" th:selected="${tarefa.status.name() == 'A_FAZER'}">A Fazer</option>
+				                    <option value="FAZENDO" th:selected="${tarefa.status.name() == 'FAZENDO'}">Fazendo</option>
+				                    <option value="PRONTO" th:selected="${tarefa.status.name() == 'PRONTO'}">Pronto</option>
+				                </select>
+				               
+				            </form>
+               			</div>
+	               		
+               		</div>
+               		
+               	</div>
+           </div>
+ 		 <div class="col-md-4 border-right">
+         	<h3 class="text-primary shadow p-3 mb-2 text-center">Fazendo</h3>
+                <div th:each="tarefa : ${tarefasFazendo}">
+                	<div class="card-body shadow p-3 mb-3 bg-white rounded">
+                	    <p> <strong>Descrição:</strong> <span th:text="${tarefa.descricao}"> Descrição da tarefa</span></p>
+                	    <p> <strong>Setor:</strong> <span th:text="${tarefa.setor}"> Setor</span></p>
+                	    <p> <strong>Prioridade:</strong> <span th:text="${tarefa.prioridade}"> Prioridade</span></p>                	   
+                	    <p> <strong>Vinculado a:</strong> <span th:text="${tarefa.usuario.nome}"> Usuário</span></p>
+                	    <p> <strong>Data abertura:</strong> <span th:text="${tarefa.dataCadastro}"> Descrição da tarefa</span></p>
+                	    
+              
+	                	 <div class="d-flex justify-content-between align-items-center mb-4 bg-primary rounded m-0 p-0">
+	                	    
+	                   		<a th:href="@{'/tarefas/editar/' + ${tarefa.id}}" class="btn btn-primary">Editar</a>
+	    					<form th:action="@{'/tarefas/excluir/' + ${tarefa.id}}" method="get" 
+	    									onsubmit="return confirm('Deseja realmente excluir esta tarefa?');">
+			           			 <button type="submit" class="btn btn-primary">Excluir</button>
+			        		</form>
+		               		
+		               		<form th:action="@{/tarefas/atualizar-status}" method="post" id="form-status" th:id="'form-status-' + ${tarefa.id}">
+				                <input type="hidden" name="id" th:value="${tarefa.id}" />
+				                <select name="status" class="form-control form-control-sm d-inline w-100"  
+				                				style="height: 50%; background-color: #007bff; color: white; font-size:1em; border: 0;" onchange="this.form.submit()">
+				                    
+				                    
+				                    <option value="A_FAZER" th:selected="${tarefa.status.name() == 'A_FAZER'}">A Fazer</option>
+				                    <option value="FAZENDO" th:selected="${tarefa.status.name() == 'FAZENDO'}">Fazendo</option>
+				                    <option value="PRONTO" th:selected="${tarefa.status.name() == 'PRONTO'}">Pronto</option>
+				                </select>
+				               
+				            </form>
+               			</div>
+	               		
+               		</div>
+               		
+               	</div>
+           </div>     
+
+	<div class="col-md-4">
+         	<h3 class="text-primary shadow p-3 mb-2 text-center">Pronto</h3>
+                <div th:each="tarefa : ${tarefasPronto}">
+                	<div class="card-body shadow p-3 mb-3 bg-white rounded">
+                	    <p> <strong>Descrição:</strong> <span th:text="${tarefa.descricao}"> Descrição da tarefa</span></p>
+                	    <p> <strong>Setor:</strong> <span th:text="${tarefa.setor}"> Setor</span></p>
+                	    <p> <strong>Prioridade:</strong> <span th:text="${tarefa.prioridade}"> Prioridade</span></p>                	   
+                	    <p> <strong>Vinculado a:</strong> <span th:text="${tarefa.usuario.nome}"> Usuário</span></p>
+                	    <p> <strong>Data abertura:</strong> <span th:text="${tarefa.dataCadastro}"> Descrição da tarefa</span></p>
+                	    
+              
+	                	 <div class="d-flex justify-content-between align-items-center mb-4 bg-primary rounded m-0 p-0">
+	                	    
+	                   		<a th:href="@{'/tarefas/editar/' + ${tarefa.id}}" class="btn btn-primary">Editar</a>
+	    					<form th:action="@{'/tarefas/excluir/' + ${tarefa.id}}" method="get" 
+	    									onsubmit="return confirm('Deseja realmente excluir esta tarefa?');">
+			           			 <button type="submit" class="btn btn-primary">Excluir</button>
+			        		</form>
+		               		
+		               		<form th:action="@{/tarefas/atualizar-status}" method="post" id="form-status" th:id="'form-status-' + ${tarefa.id}">
+				                <input type="hidden" name="id" th:value="${tarefa.id}" />
+				                <select name="status" class="form-control form-control-sm d-inline w-100"  
+				                				style="height: 50%; background-color: #007bff; color: white; font-size:1em; border: 0;" onchange="this.form.submit()">
+				                    <option value="A_FAZER" th:selected="${tarefa.status.name() == 'A_FAZER'}">A Fazer</option>
+				                    <option value="FAZENDO" th:selected="${tarefa.status.name() == 'FAZENDO'}">Fazendo</option>
+				                    <option value="PRONTO" th:selected="${tarefa.status.name() == 'PRONTO'}">Pronto</option>
+				                </select>
+				               
+				            </form>
+               			</div>
+	               		
+               		</div>
+               		
+               	</div>
+           </div>     
+           
+            
+        </div>
+    </div>
+    
+<script>
+    // Configura o tempo (em milissegundos) para o alerta desaparecer automaticamente
+    setTimeout(function() {
+        var mensagemSucesso = document.getElementById("mensagemSucesso");
+        if (mensagemSucesso) {
+            mensagemSucesso.style.transition = "opacity 0.5s ease";
+            mensagemSucesso.style.opacity = "0";
+            setTimeout(function() {
+                mensagemSucesso.style.display = "none";
+            }, 500); // Remove completamente o alerta após a transição de opacidade
+        }
+    }, 5000); // 5000 milissegundos = 5 segundos
+</script>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Usuários</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+</head>
+<body>
+<div class="container-fluid m-0 p-0">
+    <div class="d-flex justify-content-between align-items-center mb-4  bg-primary">
+        <h1 class="text-light m-3" >Gerenciamento de Tarefas</h1>
+        <div>
+            <a href="/usuarios/novo" class="btn btn-primary">Cadastro de Usuários</a>
+            <a href="/tarefas/nova" class="btn btn-primary">Cadastro de Tarefas</a>
+            <a href="/tarefas/gerenciar" class="btn btn-primary">Gerenciar Tarefas</a>
+        </div>
+    </div>
+    
+     </div>
+ 
+ <div class="container">
+		    <h1 class="text-center">Usuários</h1>
+		    <table class="table">
+		        <tr>
+		            <th scope="col">ID</th>
+		            <th scope="col">Nome</th>
+		            <th scope="col">E-mail</th>
+		            
+		        </tr>
+		        <tr th:each="usuario : ${usuarios}" >
+		            <td th:text="${usuario.id}" ></td>
+		            <td th:text="${usuario.nome}" class="w-35"></td>
+		            <td th:text="${usuario.email}" class="w-35"></td>
+		            
+		           <td>
+		                <!-- Botão para editar--> 
+		                <a th:href="@{/usuarios/editarUsuario/{id}(id=${usuario.id})}">
+		                    <button type="button" class="btn btn-info">Editar</button>
+		                </a>
+		                <!-- Botão para remover -->
+		                <a th:href="@{/usuarios/removerUsuario/{id}(id=${usuario.id})}">
+		                    <button type="button" class="btn btn-danger">Remover</button>
+		                </a>
+		            </td>
+		               
+		        </tr>
+		    </table>
+	    </div>
+   
+</body>
+</html>

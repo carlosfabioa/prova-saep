@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}">Gerenciamento de Tarefas</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <div th:replace="fragments/header :: header"></div>
+
+    <!-- Navegação -->
+    <div th:replace="fragments/navbar :: navbar"></div>
+
+    <!-- Conteúdo principal -->
+    <main>
+        <div th:replace="${content}"></div>
+    </main>
+
+    <!-- Rodapé -->
+    <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

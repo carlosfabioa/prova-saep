@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gerenciamento de Tarefas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-4" th:fragment="header">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Gerenciamento de Tarefas</h1>
+        <div>
+            <a href="/usuarios/novo" class="btn btn-primary">Cadastro de Usuários</a>
+            <a href="/tarefas/nova" class="btn btn-primary">Cadastro de Tarefas</a>
+            <a href="/tarefas/gerenciar" class="btn btn-primary">Gerenciar Tarefas</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
